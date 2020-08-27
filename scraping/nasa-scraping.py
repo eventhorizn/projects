@@ -19,7 +19,7 @@ with Browser(driver_name="chrome", **executable_path) as browser:
     #  Cycling through those links to get the title and pic url
     for link in links:
         browser.visit(link)
-        title = browser.find_by_tag('h2').text.replace(" Enhanced", "")
+        title = browser.find_by_tag('h2').text.replace(" Enhanced", "") # It adds enhanced to the end, which is dumb
         pic_url = browser.links.find_by_partial_text('Original')['href']
         hemisphere_info.append({"title" : title, "img_url": pic_url})
 
