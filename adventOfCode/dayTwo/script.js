@@ -24,5 +24,95 @@ In the above example, 2 passwords are valid. The middle password, cdefg, is not;
 How many passwords are valid according to their policies?
 */
 
+// Read in test file
+var rawText;
+var rawFile = new XMLHttpRequest();
+rawFile.open('Get', 'input.txt', false);
+rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status == 0) {
+            rawText = rawFile.responseText;
+
+        }
+    }
+}
+rawFile.send(null);
+
+
+// split test file into array
+const pwdList = [];
+rawText.split('\n').forEach(function (line) {
+    pwdList.push(line);
+});
+
+// IsValid check
+const isValidOld = function (pwdRules) {
+    if (pwdRules === "") return;
+
+    const pwdArr = pwdRules.split(' ');
+    const numRange = pwdArr[0].split('-');
+    const min = Number(numRange[0]);
+    const max = Number(numRange[1]);
+    const checkChar = pwdArr[1][0];
+    const pwd = pwdArr[2];
+
+    var numChar = pwd.split(checkChar).length - 1;
+    return numChar >= min && numChar <= max;
+}
+
+var correctPwds = 0;
+
+pwdList.forEach(function (pwdRule) {
+    if (isValidOld(pwdRule)) {
+        correctPwds++;
+    }
+});
+
+console.log(correctPwds); // 515
+console.log(pwdList.length - 1);
+
 
 // Part 2
+
+/*
+While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.
+
+The shopkeeper suddenly realizes that he just accidentally explained the password policy rules from his old job at the sled rental place down the street! The Official Toboggan Corporate Policy actually works a little differently.
+
+Each policy actually describes two positions in the password, where 1 means the first character, 2 means the second character, and so on. (Be careful; Toboggan Corporate Policies have no concept of "index zero"!) Exactly one of these positions must contain the given letter. Other occurrences of the letter are irrelevant for the purposes of policy enforcement.
+
+Given the same example list from above:
+
+1-3 a: abcde is valid: position 1 contains a and position 3 does not.
+1-3 b: cdefg is invalid: neither position 1 nor position 3 contains b.
+2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
+*/
+
+const isValidNew = function (pwdRules) {
+    if (pwdRules === "") return;
+
+    const pwdArr = pwdRules.split(' ');
+    const numRange = pwdArr[0].split('-');
+    const firstLoc = Number(numRange[0]);
+    const secondLoc = Number(numRange[1]);
+    const checkChar = pwdArr[1][0];
+    const pwd = pwdArr[2];
+
+    const inFirstLoc = pwd[firstLoc - 1] === checkChar;
+    const inSecLoc = pwd[secondLoc - 1] === checkChar;
+
+    if (inFirstLoc && inSecLoc) return false;
+    if (!inFirstLoc && !inSecLoc) return false;
+    return true;
+}
+
+var correctPwdsNew = 0;
+
+pwdList.forEach(function (pwdRule) {
+    if (isValidNew(pwdRule)) {
+        correctPwdsNew++;
+    }
+});
+
+console.log(correctPwdsNew); // 711
+console.log(pwdList.length - 1);
