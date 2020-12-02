@@ -1,4 +1,0 @@
-﻿<StaticWebAssets Version="1.0">
-  <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\gary.hake\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\3.2.0\build\..\staticwebassets\" />
-  <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\gary.hake\.nuget\packages\tewr.blazor.filereader\2.0.0.20242\build\..\staticwebassets\" />
-</StaticWebAssets>

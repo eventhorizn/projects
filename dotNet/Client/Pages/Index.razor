@@ -1,0 +1,28 @@
+﻿@*can have multiple routes*@
+@page "/"
+@page "/index"
+@inject IMoviesRepository repository
+
+<div>
+    <h3>In Theaters</h3>
+
+    <MoviesList Movies="InTheaters" />
+</div>
+
+<div>
+    <h3>Upcoming Releases</h3>
+
+    <MoviesList Movies="UpcomingReleases" />
+</div>
+
+@code{
+    private List<Movie> InTheaters;
+    private List<Movie> UpcomingReleases;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var response = await repository.GetIndexPageDTO();
+        InTheaters = response.InTheaters;
+        UpcomingReleases = response.UpcomingReleases;
+    }
+}

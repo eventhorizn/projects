@@ -1,0 +1,60 @@
+﻿@page "/person/{PersonId:int}/{PersonName}"
+@inject IPersonRepository personRepository
+@inject NavigationManager navManager
+
+@if (Person != null)
+{
+    <div>
+        <h3 style="display: inline-block;">@Person.Name</h3>
+
+        <div style="display: inline-block; margin-left: 10px;">
+            <a class="btn btn-success" href="/person/edit/@PersonId">Edit</a>
+            <button class="btn btn-danger" @onclick="@(() => DeletePerson(PersonId))">Delete</button>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label style="font-size: 22px; font-weight: bold;">Date of Birth:</label>
+        <div>
+            <label>@Person.DateOfBirth.Value.ToString("dd MMM yyyy")</label>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div>
+            <div style="margin:10px">
+                <img src="@Person.Picture" style="width: 400px;" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group form-markdown">
+        <div class="markdown-container" style="margin: 5px;">
+            <RenderMarkdown MarkdownContent="@Person.Biography" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label style="font-size: 22px; font-weight: bold;">Movies:</label>
+        <MoviesList Movies="ActorMovies" ChangeMovies="false" />
+    </div>
+}
+
+@code {
+    [Parameter] public int PersonId { get; set; }
+    [Parameter] public string PersonName { get; set; }
+    Person Person { get; set; }
+    private List<Movie> ActorMovies;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Person = await personRepository.GetPersonById(PersonId);
+        ActorMovies = Person.MovieActors.Select(x => x.Movie).ToList();
+    }
+
+    private async Task DeletePerson(int id)
+    {
+        await personRepository.DeletePerson(id);
+        navManager.NavigateTo("/people");
+    }
+}

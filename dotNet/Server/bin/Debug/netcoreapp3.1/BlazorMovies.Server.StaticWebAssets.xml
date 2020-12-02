@@ -1,0 +1,5 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\gary.hake\source\personal\blazor-bootcamp\05-Http and Entity Framework\Client\bin\Debug\netstandard2.1\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Users\gary.hake\source\personal\blazor-bootcamp\05-Http and Entity Framework\Client\wwwroot\" />
+  <ContentRoot BasePath="_content/Tewr.Blazor.FileReader" Path="C:\Users\gary.hake\.nuget\packages\tewr.blazor.filereader\2.0.0.20242\build\..\staticwebassets\" />
+</StaticWebAssets>
