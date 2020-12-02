@@ -1,0 +1,341 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.ServerSide\\BlazorMovies.ServerSide.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\BlazorMovies.Components.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\BlazorMovies.Components.csproj",
+        "projectName": "BlazorMovies.Components",
+        "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\BlazorMovies.Components.csproj",
+        "packagesPath": "C:\\Users\\gary.hake\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\gary.hake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://znuget.zirmed.com/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj": {
+                "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "Markdig": {
+              "target": "Package",
+              "version": "[0.21.1, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.AspNetCore.Components.WebAssembly.Authentication": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "System.Net.Http.Json": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Tewr.Blazor.FileReader": {
+              "target": "Package",
+              "version": "[2.0.0.20242, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.ServerSide\\BlazorMovies.ServerSide.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.ServerSide\\BlazorMovies.ServerSide.csproj",
+        "projectName": "BlazorMovies.ServerSide",
+        "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.ServerSide\\BlazorMovies.ServerSide.csproj",
+        "packagesPath": "C:\\Users\\gary.hake\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.ServerSide\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\gary.hake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://znuget.zirmed.com/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\BlazorMovies.Components.csproj": {
+                "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.Components\\BlazorMovies.Components.csproj"
+              },
+              "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\BlazorMovies.SharedBackend.csproj": {
+                "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\BlazorMovies.SharedBackend.csproj"
+              },
+              "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj": {
+                "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Markdig": {
+              "target": "Package",
+              "version": "[0.21.1, )"
+            },
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.Azure.SignalR": {
+              "target": "Package",
+              "version": "[1.5.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Tewr.Blazor.FileReader": {
+              "target": "Package",
+              "version": "[2.0.0.20242, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\BlazorMovies.SharedBackend.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\BlazorMovies.SharedBackend.csproj",
+        "projectName": "BlazorMovies.SharedBackend",
+        "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\BlazorMovies.SharedBackend.csproj",
+        "packagesPath": "C:\\Users\\gary.hake\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies.SharedBackend\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\gary.hake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://znuget.zirmed.com/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj": {
+                "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            },
+            "Microsoft.Azure.Storage.Blob": {
+              "target": "Package",
+              "version": "[11.2.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj",
+        "projectName": "BlazorMovies.Shared",
+        "projectPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\BlazorMovies.Shared.csproj",
+        "packagesPath": "C:\\Users\\gary.hake\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gary.hake\\source\\personal\\blazor-bootcamp\\09-Server Side\\BlazorMovies\\Shared\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\gary.hake\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://znuget.zirmed.com/nuget/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

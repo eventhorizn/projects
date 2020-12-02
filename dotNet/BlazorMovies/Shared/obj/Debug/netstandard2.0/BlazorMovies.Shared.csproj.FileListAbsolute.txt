@@ -1,0 +1,9 @@
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\bin\Debug\netstandard2.0\BlazorMovies.Shared.deps.json
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\bin\Debug\netstandard2.0\BlazorMovies.Shared.dll
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\bin\Debug\netstandard2.0\BlazorMovies.Shared.pdb
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.csprojAssemblyReference.cache
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.AssemblyInfoInputs.cache
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.AssemblyInfo.cs
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.csproj.CoreCompileInputs.cache
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.dll
+C:\Users\gary.hake\source\personal\blazor-bootcamp\08-Sharing Code RCL\BlazorMovies\Shared\obj\Debug\netstandard2.0\BlazorMovies.Shared.pdb

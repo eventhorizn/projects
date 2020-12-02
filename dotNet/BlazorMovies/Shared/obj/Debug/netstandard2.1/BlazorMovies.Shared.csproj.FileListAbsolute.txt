@@ -1,0 +1,9 @@
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\bin\Debug\netstandard2.1\BlazorMovies.Shared.deps.json
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\bin\Debug\netstandard2.1\BlazorMovies.Shared.dll
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\bin\Debug\netstandard2.1\BlazorMovies.Shared.pdb
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.AssemblyInfoInputs.cache
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.AssemblyInfo.cs
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.csproj.CoreCompileInputs.cache
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.dll
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.pdb
+C:\Users\gary.hake\source\personal\blazor-bootcamp\09-Server Side\BlazorMovies\Shared\obj\Debug\netstandard2.1\BlazorMovies.Shared.csprojAssemblyReference.cache
