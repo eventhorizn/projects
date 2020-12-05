@@ -160,6 +160,8 @@ const getIds = function () {
         ids.push(get_id(x));
     });
 
+    ids.sort((a, b) => a - b);
+
     return ids;
 }
 
@@ -172,33 +174,53 @@ const getAllIds = function () {
             ids.push(id);
         }
     }
+    ids.sort((a, b) => a - b);
+
     return ids;
 }
 
+/**
+ * 
+ * @param {Array} all_ids 
+ * @param {Array} ids 
+ */
+const getMissingIds = function (all_ids, ids) {
+    const missing_ids = [];
+
+    all_ids.forEach(x => {
+        if (!ids.includes(x)) {
+            missing_ids.push(x);
+        }
+    });
+    missing_ids.sort((a, b) => a - b);
+
+    return missing_ids;
+}
+
+/**
+ * 
+ * @param {Array} missing_ids 
+ */
+const findSeat = function (missing_ids) {
+    let found = 0;
+
+    missing_ids.forEach(x => {
+        const before = x - 1;
+        const after = x + 1;
+
+        if (ids.includes(before) && ids.includes(after)) {
+            found = x;
+        }
+    });
+
+    return found
+}
+
 const ids = getIds();
-ids.sort((a, b) => a - b);
-
 const all_ids = getAllIds();
-all_ids.sort((a, b) => a - b);
+const missing_ids = getMissingIds(all_ids, ids);
 
-// finding missing ids
-const missing_ids = [];
-all_ids.forEach(x => {
-    if (!ids.includes(x)) {
-        missing_ids.push(x);
-    }
-});
-missing_ids.sort((a, b) => a - b);
 
-// if the item before a missing id and after exists, we have our seat
-let found = 0;
-missing_ids.forEach(x => {
-    const before = x - 1;
-    const after = x + 1;
-
-    if (ids.includes(before) && ids.includes(after)) {
-        found = x;
-    }
-});
+let found = findSeat(missing_ids);
 
 console.log(found); // 612
