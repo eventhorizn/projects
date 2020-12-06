@@ -109,7 +109,7 @@ const sumDisctinct = function (groups) {
 const groups = getGroups(rows);
 const sum = sumDisctinct(groups);
 
-console.log(sum);
+console.log(sum); //6310
 
 // Part 2
 
@@ -188,10 +188,6 @@ const getGroupsPeople = function (rows) {
 const distinctLetters = getDistinctLetters(groups);
 const groupsPeople = getGroupsPeople(rows);
 
-// console.log(distinctLetters);
-// console.log(groupsPeople);
-// console.log(distinctLetters.length);
-
 let total = 0;
 for (let i = 0; i < groupsPeople.length; i++) {
     const groupDL = distinctLetters[i];
@@ -210,8 +206,7 @@ for (let i = 0; i < groupsPeople.length; i++) {
             }
         });
         if (dlPresentInGroup) groupDLCount++;
-        //console.log(groupDLCount);
     });
     total += groupDLCount
 }
-console.log(total);
+console.log(total);//3193
