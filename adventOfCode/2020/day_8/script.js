@@ -119,7 +119,7 @@ const getAccumulatorBeforeLoop = function (instructions) {
 const instructions = getInstructions(rows);
 const accum = getAccumulatorBeforeLoop(instructions);
 
-console.log(accum);
+console.log(accum); //2051
 
 // Part 2
 
@@ -223,4 +223,4 @@ const getAccumulatorForCorrectInstructions = function (staticInstructions) {
 const staticInstructions = getInstructions(rows);
 const accum2 = getAccumulatorForCorrectInstructions(staticInstructions);
 
-console.log(accum2);
+console.log(accum2); //2304
