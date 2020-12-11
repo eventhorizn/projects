@@ -91,7 +91,7 @@ Simulate your seating area by applying the seating rules repeatedly until no sea
 // Read in file
 let rawText;
 let rawFile = new XMLHttpRequest();
-rawFile.open('Get', 'test.txt', false);
+rawFile.open('Get', 'input.txt', false);
 rawFile.onreadystatechange = function () {
     if (rawFile.readyState === 4) {
         if (rawFile.status === 200 || rawFile.status == 0) {
@@ -103,14 +103,15 @@ rawFile.onreadystatechange = function () {
 rawFile.send(null);
 
 // split test file into 2D array
-const rows = [];
+const board = [];
 rawText.split('\n').forEach(function (line) {
     const lineArr = line.trim().split('');
-    rows.push(lineArr);
+    board.push(lineArr);
 });
 
 const occupied = '#';
 const empty = 'L';
+const floor = '.';
 
 /**
  * 
@@ -127,13 +128,13 @@ const copyBoard = function (array) {
 /**
  * 
  * @param {Array} array 
- * @param {Number} modX 
- * @param {Number} modY 
+ * @param {Number} row
+ * @param {Number} col
  */
-const getElement = function (array, modX, modY) {
+const getElement = function (array, row, col) {
     let el;
     try {
-        el = array[modX][modY];
+        el = array[row][col];
     } catch {
         el = '-1';
     }
@@ -149,18 +150,18 @@ const getElement = function (array, modX, modY) {
  * @param {Number} x 
  * @param {Number} y 
  */
-const getAdjecentElements = function (array, x, y) {
+const getAdjacentElements = function (array, row, col) {
     // this is ugly as shit, I know there's a clever way, but fuck it
     const adjEls = [];
 
-    const topLeft = getElement(array, x - 1, y - 1);
-    const top = getElement(array, x, y - 1);
-    const topRight = getElement(array, x + 1, y - 1);
-    const midLeft = getElement(array, x - 1, y);
-    const midRight = getElement(array, x + 1, y);
-    const botLeft = getElement(array, x - 1, y + 1);
-    const bot = getElement(array, x, y + 1);
-    const botRight = getElement(array, x + 1, y + 1);
+    const topLeft = getElement(array, row - 1, col - 1);
+    const top = getElement(array, row, col - 1);
+    const topRight = getElement(array, row + 1, col - 1);
+    const midLeft = getElement(array, row - 1, col);
+    const midRight = getElement(array, row + 1, col);
+    const botLeft = getElement(array, row - 1, col + 1);
+    const bot = getElement(array, row, col + 1);
+    const botRight = getElement(array, row + 1, col + 1);
 
     adjEls.push(topLeft, top, topRight, midLeft, midRight, botLeft, bot, botRight);
 
@@ -171,9 +172,9 @@ const getAdjecentElements = function (array, x, y) {
  * 
  * @param {Array} array 
  */
-const noOccupiedSeats = function (array) {
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] === occupied) return false;
+const noOccupiedSeats = function (adjacentEls) {
+    for (let i = 0; i < adjacentEls.length; i++) {
+        if (adjacentEls[i] === occupied) return false;
     }
 
     return true;
@@ -183,11 +184,11 @@ const noOccupiedSeats = function (array) {
  * 
  * @param {Array} array 
  */
-const atLeastFourOccupied = function (array) {
+const atLeastFourOccupied = function (adjacentEls) {
     let countOccupied = 0;
 
-    for (let i = 0; i < array.length; i++) {
-        if (array[i] === occupied) countOccupied++;
+    for (let i = 0; i < adjacentEls.length; i++) {
+        if (adjacentEls[i] === occupied) countOccupied++;
     }
 
     return countOccupied >= 4;
@@ -201,14 +202,14 @@ const seatRound = function (rows) {
     const cleanBoard = copyBoard(rows);
     const board = copyBoard(rows);
 
-    for (let x = 0; x < board.length; x++) {
-        for (let y = 0; y < board.length; y++) {
-            const adjEls = getAdjecentElements(cleanBoard, x, y);
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board.length; col++) {
+            const adjEls = getAdjacentElements(cleanBoard, row, col);
 
-            if (cleanBoard[x][y] === 'L' && noOccupiedSeats(adjEls)) {
-                board[x][y] = '#';
-            } else if (cleanBoard[x][y] === '#' && atLeastFourOccupied(adjEls)) {
-                board[x][y] = 'L';
+            if (cleanBoard[row][col] === 'L' && noOccupiedSeats(adjEls)) {
+                board[row][col] = '#';
+            } else if (cleanBoard[row][col] === '#' && atLeastFourOccupied(adjEls)) {
+                board[row][col] = 'L';
             }
         }
     }
@@ -222,9 +223,9 @@ const seatRound = function (rows) {
  * @param {Array} board2 
  */
 const boardChange = function (board1, board2) {
-    for (let i = 0; i < board1.length; i++) {
-        for (let j = 0; j < board1.length; j++) {
-            if (board1[i][j] !== board2[i][j]) {
+    for (let row = 0; row < board1.length; row++) {
+        for (let col = 0; col < board1.length; col++) {
+            if (board1[row][col] !== board2[row][col]) {
                 return true;
             }
         }
@@ -239,9 +240,9 @@ const boardChange = function (board1, board2) {
  */
 const printBoard = function (board) {
     let boardDisp = '';
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            boardDisp += board[i][j];
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board.length; col++) {
+            boardDisp += board[row][col];
         }
         boardDisp += '\n';
     }
@@ -252,9 +253,9 @@ const printBoard = function (board) {
 const countOccupied = function (board) {
     let countOccupied = 0;
 
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            if (board[i][j] === occupied) countOccupied++;
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board.length; col++) {
+            if (board[row][col] === occupied) countOccupied++;
         }
 
     }
@@ -262,9 +263,8 @@ const countOccupied = function (board) {
     return countOccupied;
 }
 
-let currentBoard = copyBoard(rows);
+let currentBoard = copyBoard(board);
 let nextBoard = seatRound(currentBoard);
-
 
 while (boardChange(currentBoard, nextBoard)) {
     currentBoard = copyBoard(nextBoard);
@@ -272,97 +272,247 @@ while (boardChange(currentBoard, nextBoard)) {
 }
 
 
-console.log(countOccupied(nextBoard));
+console.log(countOccupied(nextBoard)); //2265
 
 // Part 2
+/*
 
-const getOccupidedUp = function (array, x, y) {
-    for (let i = 0; i < y; i++) {
-        if (array[i][x] === occupied) {
-            return 1;
+As soon as people start to arrive, you realize your mistake. People don't just care about adjacent seats - they care about the first seat they can see in each of those eight directions!
+
+Now, instead of considering just the eight immediately adjacent seats, consider the first seat in each of those eight directions. For example, the empty seat below would see eight occupied seats:
+
+.......#.
+...#.....
+.#.......
+.........
+..#L....#
+....#....
+.........
+#........
+...#.....
+The leftmost empty seat below would only see one empty seat, but cannot see any of the occupied ones:
+
+.............
+.L.L.#.#.#.#.
+.............
+The empty seat below would see no occupied seats:
+
+.##.##.
+#.#.#.#
+##...##
+...L...
+##...##
+#.#.#.#
+.##.##.
+Also, people seem to be more tolerant than you expected: it now takes five or more visible occupied seats for an occupied seat to become empty (rather than four or more from the previous rules). The other rules still apply: empty seats that see no occupied seats become occupied, seats matching no rule don't change, and floor never changes.
+
+Given the same starting layout as above, these new rules cause the seating area to shift around as follows:
+
+L.LL.LL.LL
+LLLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLLL
+L.LLLLLL.L
+L.LLLLL.LL
+#.##.##.##
+#######.##
+#.#.#..#..
+####.##.##
+#.##.##.##
+#.#####.##
+..#.#.....
+##########
+#.######.#
+#.#####.##
+#.LL.LL.L#
+#LLLLLL.LL
+L.L.L..L..
+LLLL.LL.LL
+L.LL.LL.LL
+L.LLLLL.LL
+..L.L.....
+LLLLLLLLL#
+#.LLLLLL.L
+#.LLLLL.L#
+#.L#.##.L#
+#L#####.LL
+L.#.#..#..
+##L#.##.##
+#.##.#L.##
+#.#####.#L
+..#.#.....
+LLL####LL#
+#.L#####.L
+#.L####.L#
+#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##LL.LL.L#
+L.LL.LL.L#
+#.LLLLL.LL
+..L.L.....
+LLLLLLLLL#
+#.LLLLL#.L
+#.L#LL#.L#
+#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##L#.#L.L#
+L.L#.#L.L#
+#.L####.LL
+..#.#.....
+LLL###LLL#
+#.LLLLL#.L
+#.L#LL#.L#
+#.L#.L#.L#
+#LLLLLL.LL
+L.L.L..#..
+##L#.#L.L#
+L.L#.LL.L#
+#.LLLL#.LL
+..#.L.....
+LLL###LLL#
+#.LLLLL#.L
+#.L#LL#.L#
+Again, at this point, people stop shifting around and the seating area reaches equilibrium. Once this occurs, you count 26 occupied seats.
+
+Given the new visibility method and the rule change for occupied seats becoming empty, once equilibrium is reached, how many seats end up occupied?
+*/
+
+const getOccupiedUpDownLeftRight = function (array, row, col, lookingFor, notLookingFor) {
+    let upDownLeftRight = 0;
+
+    // up
+    for (let rowCheck = row - 1; rowCheck >= 0; rowCheck--) {
+        if (array[rowCheck][col] === lookingFor) {
+            upDownLeftRight++;
+            break;
+        }
+
+        if (array[rowCheck][col] === notLookingFor) {
+            break;
         }
     }
 
-    return 0;
-}
+    // down
+    for (let rowCheck = row + 1; rowCheck < array.length; rowCheck++) {
+        if (array[rowCheck][col] === lookingFor) {
+            upDownLeftRight++;
+            break;
+        }
 
-const getOccupidedDown = function (array, y, x) {
-    for (let i = y + 1; i < array.length; i++) {
-        if (array[i][x] === occupied) {
-            return 1;
+        if (array[rowCheck][col] === notLookingFor) {
+            break;
         }
     }
 
-    return 0;
-}
-
-const getOccupidedRight = function (array, x, y) {
-    for (let i = x = 1; i < array.length; i++) {
-        if (array[y][i] === occupied) {
-            return 1;
+    // left
+    for (let colCheck = col - 1; colCheck >= 0; colCheck--) {
+        if (array[row][colCheck] === lookingFor) {
+            upDownLeftRight++;
+            break;
         }
-    }
-    return 0
-}
 
-
-const getOccupidedLeft = function (array, x, y) {
-    for (let i = 0; i < x; i++) {
-        if (array[y][i] === occupied) {
-            return 1;
+        if (array[row][colCheck] === notLookingFor) {
+            break;
         }
     }
 
-    return 0;
+    // right
+    for (let colCheck = col + 1; colCheck < array.length; colCheck++) {
+        if (array[row][colCheck] === lookingFor) {
+            upDownLeftRight++;
+            break;
+        }
+
+        if (array[row][colCheck] === notLookingFor) {
+            break;
+        }
+    }
+
+    return upDownLeftRight;
 }
 
-// right = x + 1, up = y -1
-const getOccupiedUpRight = function (array, x, y) {
-    let el = getElement(array, x, y);
+const getOccupiedUpRight = function (array, row, col, lookingFor, notLookingFor) {
+    let el = getElement(array, row, col);
+    let irow = row;
+    let icol = col;
+
     do {
-        el = getElement(array, x + 1, y - 1);
-        if (el === occupied) {
+        irow--;
+        icol++;
+        el = getElement(array, irow, icol);
+        if (el === lookingFor) {
             return 1
         }
-    } while (!el) // not undefined
+        if (el === notLookingFor) {
+            return 0;
+        }
+    } while (el !== "-1") // not undefined
 
     return 0
 }
 
-// left = x - 1, up = y - 1
-const getOccupiedUpLeft = function (array, x, y) {
-    let el = getElement(array, x, y);
+const getOccupiedUpLeft = function (array, row, col, lookingFor, notLookingFor) {
+    let el = getElement(array, row, col);
+    let irow = row;
+    let icol = col;
+
     do {
-        el = getElement(array, x - 1, y - 1);
-        if (el === occupied) {
+        irow--;
+        icol--;
+        el = getElement(array, irow, icol);
+        if (el === lookingFor) {
             return 1
         }
-    } while (!el) // not undefined
+        if (el === notLookingFor) {
+            return 0;
+        }
+    } while (el !== "-1") // not undefined
 
     return 0
 }
 
-// right = x + 1 down = y + 1
-const getOccupiedDownRight = function (array, x, y) {
-    let el = getElement(array, x, y);
+const getOccupiedDownRight = function (array, row, col, lookingFor, notLookingFor) {
+    let el = getElement(array, row, col);
+    let irow = row;
+    let icol = col;
+
     do {
-        el = getElement(array, x + 1, y + 1);
-        if (el === occupied) {
+        irow++;
+        icol++;
+        el = getElement(array, irow, icol);
+        if (el === lookingFor) {
             return 1
         }
-    } while (!el) // not undefined
+        if (el === notLookingFor) {
+            return 0;
+        }
+    } while (el !== "-1") // not undefined
 
     return 0
 }
 
-const getOccupidedDownLeft = function (array, x, y) {
-    let el = getElement(array, x, y);
+const getOccupidedDownLeft = function (array, row, col, lookingFor, notLookingFor) {
+    let el = getElement(array, row, col);
+    let irow = row;
+    let icol = col;
+
     do {
-        el = getElement(array, x - 1, y + 1);
-        if (el === occupied) {
+        irow++;
+        icol--;
+        el = getElement(array, irow, icol);
+        if (el === lookingFor) {
             return 1
         }
-    } while (!el) // not undefined
+        if (el === notLookingFor) {
+            return 0;
+        }
+    } while (el !== "-1") // not undefined
 
     return 0
 }
@@ -373,30 +523,33 @@ const getOccupidedDownLeft = function (array, x, y) {
  * @param {Number} x 
  * @param {Number} y 
  */
-const atLeastFiveOccupied = function (array, x, y) {
+const atLeastFiveOccupied = function (array, row, col) {
     let countOccupied = 0;
-    let occRight = getOccupidedRight(array, x, x);
-    let occLeft = getOccupidedLeft(array, x, y);
-    let occUp = getOccupidedUp(array, x, y);
-    let occDown = getOccupidedDown(array, y, x);
-    let occUpRight = getOccupiedUpRight(array, x, y);
-    let occUpLeft = getOccupiedUpLeft(array, x, y);
-    let occDownRight = getOccupiedDownRight(array, x, y);
-    let occDownLeft = getOccupidedDownLeft(array, x, y);
+    let upDownLeftRight = getOccupiedUpDownLeftRight(array, row, col, occupied, empty);
+    let upRightDiag = getOccupiedUpRight(array, row, col, occupied, empty);
+    let upLeftDiag = getOccupiedUpLeft(array, row, col, occupied, empty);
+    let downRightDiag = getOccupiedDownRight(array, row, col, occupied, empty);
+    let downLeftDiag = getOccupidedDownLeft(array, row, col, occupied, empty);
 
-    //array[x][y] = 'test';
 
     countOccupied +=
-        getOccupidedRight(array, x, x) +
-        getOccupidedLeft(array, x, y) +
-        getOccupidedUp(array, x, y) +
-        getOccupidedDown(array, y, x) +
-        getOccupiedUpRight(array, x, y) +
-        getOccupiedUpLeft(array, x, y) +
-        getOccupiedDownRight(array, x, y) +
-        getOccupidedDownLeft(array, x, y);
+        upDownLeftRight + upRightDiag + upLeftDiag + downRightDiag + downLeftDiag;
 
     return countOccupied >= 5;
+}
+
+const noneOccupied = function (array, row, col) {
+    let countOccupied = 0;
+    let upDownLeftRight = getOccupiedUpDownLeftRight(array, row, col, occupied, empty);
+    let upRightDiag = getOccupiedUpRight(array, row, col, occupied, empty);
+    let upLeftDiag = getOccupiedUpLeft(array, row, col, occupied, empty);
+    let downRightDiag = getOccupiedDownRight(array, row, col, occupied, empty);
+    let downLeftDiag = getOccupidedDownLeft(array, row, col, occupied, empty);
+
+    countOccupied +=
+        upDownLeftRight + upRightDiag + upLeftDiag + downRightDiag + downLeftDiag;
+
+    return countOccupied === 0;
 }
 
 /**
@@ -407,15 +560,14 @@ const seatRound2 = function (rows) {
     const cleanBoard = copyBoard(rows);
     const board = copyBoard(rows);
 
-    for (let x = 0; x < board.length; x++) {
-        for (let y = 0; y < board.length; y++) {
-            const adjEls = getAdjecentElements(cleanBoard, y, x);
+    for (let row = 0; row < board.length; row++) {
+        for (let col = 0; col < board.length; col++) {
 
-            if (cleanBoard[y][x] === 'L' && noOccupiedSeats(adjEls)) {
-                board[y][x] = '#';
-            } else if (cleanBoard[y][x] === '#' && atLeastFiveOccupied(cleanBoard, y, x)) {
+            if (cleanBoard[row][col] === 'L' && noneOccupied(cleanBoard, row, col)) {
+                board[row][col] = '#';
+            } else if (cleanBoard[row][col] === '#' && atLeastFiveOccupied(cleanBoard, row, col)) {
 
-                board[y][x] = 'L';
+                board[row][col] = 'L';
             }
         }
     }
@@ -423,18 +575,12 @@ const seatRound2 = function (rows) {
     return board;
 }
 
-let currentBoard2 = copyBoard(rows);
+let currentBoard2 = copyBoard(board);
 let nextBoard2 = seatRound2(currentBoard2);
-printBoard(nextBoard2);
-
-//const blah = atLeastFiveOccupied(nextBoard2, 0, 3);
 
 while (boardChange(currentBoard2, nextBoard2)) {
     currentBoard2 = copyBoard(nextBoard2);
     nextBoard2 = seatRound2(currentBoard2);
-    printBoard(nextBoard2);
 }
 
-
-/*
-*/
+console.log(countOccupied(nextBoard2)); //2045
