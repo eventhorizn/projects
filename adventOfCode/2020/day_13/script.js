@@ -189,7 +189,7 @@ const busSchedP2 = getBusScheduleArrayPart2(rows[1]);
 // This works, but it's fucking slooooow
 const findEarliestTS = function () {
     let exitCondition = 0;
-    while (exitCondition <= 10000000000000) {
+    while (exitCondition <= 10000000000000000) {
         let foundIt = true;
         for (let i = 0; i < busSchedP2.length; i++) {
             if (busSchedP2[i] === 'x') {
@@ -205,7 +205,7 @@ const findEarliestTS = function () {
 
         if (foundIt) return exitCondition;
 
-        exitCondition++;
+        exitCondition += Number(busSchedP2[0]);
     }
 }
 
