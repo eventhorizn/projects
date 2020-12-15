@@ -567,3 +567,9 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## JS
+node_modules
+.cache
+.parcel-cache
+dist
