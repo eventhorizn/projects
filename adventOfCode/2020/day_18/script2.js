@@ -1,10 +1,11 @@
-// Part 1
-
-const fs = require('fs');
-const { getegid } = require('process');
-const lines = fs.readFileSync('C:\\Users\\gary.hake\\source\\personal\\projects\\adventOfCode\\2020\\day_18\\input.txt', 'utf-8').split('\n')
-
-const getExpression = function (line) {
+const inputChars = Array.from(
+    require('fs')
+        .readFileSync('C:\\Users\\gary.hake\\source\\personal\\projects\\adventOfCode\\2020\\day_18\\input.txt', 'utf-8')
+        .split('\r\n')
+        .map(line => Array.from(line.replace(/\s/g, '')))
+);
+const inputExpressions = inputChars.map(line => {
+    // index of next token in the input
     let offset = 0;
 
     function parseSubExpr() {
@@ -30,6 +31,7 @@ const getExpression = function (line) {
                     break;
                 }
                 default: {
+                    // TODO maybe consume more numbers?
                     sequence.push(parseInt(nextChar));
                     break;
                 }
@@ -42,71 +44,12 @@ const getExpression = function (line) {
 
     // kick off recursion
     return parseSubExpr();
-}
+});
 
 /**
- * @param {string} expr 
+ * @param {Token} token 
+ * @returns {number}
  */
-const calcExpression = function (left, operator, right) {
-    if (operator === "+") {
-        return left + right;
-    } else {
-        return left * right;
-    }
-}
-
-function evalExpression(expression) {
-    let val;
-    let operator;
-
-    // compute expression
-    for (const token of expression) {
-        // token is + or *
-        if (typeof (token) === 'string') {
-            operator = token;
-            // token is value
-        } else if (typeof (token) === 'number') {
-            if (val === undefined) { // left side
-                val = token;
-            } else { // we've found our right side
-                val = calcExpression(val, operator, token);
-            }
-        } else if (Array.isArray(token)) { // sub expression
-            const subExprValue = evalExpression(token); // recursively find the value
-            if (val === undefined) {// left side
-                val = subExprValue;
-            } else { // sub expr is right side
-                val = calcExpression(val, operator, subExprValue);
-            }
-
-        } else {
-            throw new Error(`Unknown token: '${token}'`);
-
-        }
-    }
-
-    // return total
-    return val;
-}
-// let test = '1 + (2 * 3) + (4 * (5 + 6))';
-// test = test.split(" ").join("");
-
-// const expr = getExpression(test);
-// const answer = evalExpression(expr);
-
-// const answerArray = [];
-
-// lines.forEach(line => {
-//     line = line.split(" ").join("");
-//     const expr = getExpression(line);
-//     answerArray.push(evalExpression(expr));
-// });
-
-// console.log(answerArray.reduce((x, y) => x + y));
-
-
-// Part 2
-
 function getValue(token) {
     if (typeof (token) === 'number') {
         return token;
@@ -117,7 +60,11 @@ function getValue(token) {
     throw new Error(`Cannot get value of ${token}`);
 }
 
-function evalExpression2(expression) {
+/**
+ * @param {Expression} expression
+ * @returns {number}
+ */
+function evalExpression(expression) {
     let additionSolved = false;
     while (expression.length > 1) {
         let foundAddition = false;
@@ -155,12 +102,6 @@ function evalExpression2(expression) {
     return getValue(expression[0]);
 }
 
-const answerArray2 = [];
-
-lines.forEach(line => {
-    line = line.split(" ").join("");
-    const expr = getExpression(line);
-    answerArray2.push(evalExpression2(expr));
-});
-
-console.log(answerArray2.reduce((x, y) => x + y));
+// Part 1
+const part1Answer = inputExpressions.reduce((total, expr) => total + evalExpression(expr), 0);
+console.log(`Part 1: the total is ${part1Answer}`);
