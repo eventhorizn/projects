@@ -1,107 +1,94 @@
-const inputChars = Array.from(
-    require('fs')
-        .readFileSync('C:\\Users\\gary.hake\\source\\personal\\projects\\adventOfCode\\2020\\day_18\\input.txt', 'utf-8')
-        .split('\r\n')
-        .map(line => Array.from(line.replace(/\s/g, '')))
-);
-const inputExpressions = inputChars.map(line => {
-    // index of next token in the input
-    let offset = 0;
+const fs = require('fs');
+const input = fs.readFileSync('C:\\Users\\gary.hake\\source\\personal\\projects\\adventOfCode\\2020\\day_18\\input.txt', 'utf-8').split('\n').filter(x => x);
 
-    function parseSubExpr() {
-        /** @type {Expression} */
-        const sequence = [];
+const ops = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+    '*': (a, b) => a * b,
+    '/': (a, b) => a / b,
+};
 
-        while (offset < line.length) {
-            // get next character from input
-            const nextChar = line[offset];
-            offset++;
-
-            switch (nextChar) {
-                case '(': {
-                    sequence.push(parseSubExpr());
-                    break;
+function part1(input) {
+    const results = input
+        .map(line =>
+            line
+                .replace(/\s+/g, '')
+                .split('')
+                .map(x => (isNaN(x) ? x : parseInt(x)))
+                .reverse()
+        )
+        .map(tokens => {
+            const stack = [];
+            while (stack.length > 1 || tokens.length > 0) {
+                while (stack.length < 3) {
+                    stack.push(tokens.pop());
                 }
-                case ')': {
-                    return sequence;
-                }
-                case '+':
-                case '*': {
-                    sequence.push(nextChar);
-                    break;
-                }
-                default: {
-                    // TODO maybe consume more numbers?
-                    sequence.push(parseInt(nextChar));
-                    break;
-                }
-            }
-        }
-
-        // end of input
-        return sequence;
-    }
-
-    // kick off recursion
-    return parseSubExpr();
-});
-
-/**
- * @param {Token} token 
- * @returns {number}
- */
-function getValue(token) {
-    if (typeof (token) === 'number') {
-        return token;
-    }
-    if (Array.isArray(token)) {
-        return evalExpression(token);
-    }
-    throw new Error(`Cannot get value of ${token}`);
-}
-
-/**
- * @param {Expression} expression
- * @returns {number}
- */
-function evalExpression(expression) {
-    let additionSolved = false;
-    while (expression.length > 1) {
-        let foundAddition = false;
-
-        for (let i = 1; i < expression.length - 1; i++) {
-            const token = expression[i];
-
-            if (additionSolved) {
-                // solve multiplication, ONLY if addition is solved
-                if (token === '*') {
-                    // solve and replace this sequence
-                    expression.splice(i - 1, 3, getValue(expression[i - 1]) * getValue(expression[i + 1]));
-                    i--;
-                }
-            } else {
-                // solve addition, ONLY if addition is not solved
-                if (token === '+') {
-                    // solve and replace this sequence
-                    expression.splice(i - 1, 3, getValue(expression[i - 1]) + getValue(expression[i + 1]));
-
-                    // mark as solved
-                    foundAddition = true;
-                    i--;
+                const third = stack.pop();
+                const second = stack.pop();
+                const first = stack.pop();
+                if (first === '(' && third === ')') {
+                    stack.push(second);
+                } else if (
+                    !isNaN(first) &&
+                    Object.keys(ops).includes(second) &&
+                    !isNaN(third)
+                ) {
+                    stack.push(ops[second](first, third));
+                } else if (tokens.length > 0) {
+                    stack.push(first);
+                    stack.push(second);
+                    stack.push(third);
+                    stack.push(tokens.pop());
                 }
             }
-        }
 
-        // check to see if we have now solved the addition
-        if (!foundAddition) {
-            additionSolved = true;
-        }
-    }
+            return stack[0];
+        });
 
-    // return total
-    return getValue(expression[0]);
+    return results.reduce((acc, cur) => acc + cur);
 }
 
-// Part 1
-const part1Answer = inputExpressions.reduce((total, expr) => total + evalExpression(expr), 0);
-console.log(`Part 1: the total is ${part1Answer}`);
+function part2(input) {
+    const results = input
+        .map(line =>
+            line
+                .replace(/\s+/g, '')
+                .split('')
+                .map(x => (isNaN(x) ? x : parseInt(x)))
+                .reverse()
+        )
+        .map(tokens => {
+            const stack = [];
+            while (stack.length > 1 || tokens.length > 0) {
+                while (stack.length < 3) {
+                    stack.push(tokens.pop());
+                }
+                const next = tokens[tokens.length - 1];
+                const third = stack.pop();
+                const second = stack.pop();
+                const first = stack.pop();
+                if (first === '(' && third === ')') {
+                    stack.push(second);
+                } else if (
+                    !isNaN(first) &&
+                    Object.keys(ops).includes(second) &&
+                    !isNaN(third) &&
+                    next !== '+'
+                ) {
+                    stack.push(ops[second](first, third));
+                } else if (tokens.length > 0) {
+                    stack.push(first);
+                    stack.push(second);
+                    stack.push(third);
+                    stack.push(tokens.pop());
+                }
+            }
+
+            return stack[0];
+        });
+
+    return results.reduce((acc, cur) => acc + cur);
+}
+
+console.log(part1(input));
+console.log(part2(input)); // 122438593522757

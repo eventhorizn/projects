@@ -339,7 +339,6 @@ const otherValidTickets = getOtherValidTickets(input, badNums);
 const mapKeyNumberPos = mapKeyToNumberPositionPass(rulesMap, otherValidTickets);
 
 let cleanMap;
-let escape = 0;
 do {
     cleanMap = cleanPassingMap(mapKeyNumberPos);
 } while (mapStillDirty(cleanMap));

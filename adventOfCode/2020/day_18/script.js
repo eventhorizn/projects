@@ -1,7 +1,7 @@
 // Part 1
 
 const fs = require('fs');
-const { getegid } = require('process');
+
 const lines = fs.readFileSync('C:\\Users\\gary.hake\\source\\personal\\projects\\adventOfCode\\2020\\day_18\\input.txt', 'utf-8').split('\n')
 
 const getExpression = function (line) {
