@@ -92,6 +92,19 @@ namespace BlazorMovies.Server.Controllers
                 personDB.Picture = await fileStorageService.EditFile(personPicture, "jpg", "people", personDB.Picture);
             }
 
+            await context.Database.
+                ExecuteSqlInterpolatedAsync($"delete from MovieActors where PersonId = {person.Id}");
+
+            if (person.MovieActors != null)
+            {
+                for (int i = 0; i < person.MovieActors.Count; i++)
+                {
+                    person.MovieActors[i].Order = i + 1;
+                }
+            }
+
+            personDB.MovieActors = person.MovieActors;
+
             await context.SaveChangesAsync();
             return NoContent();
         }
