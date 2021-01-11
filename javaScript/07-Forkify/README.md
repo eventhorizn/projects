@@ -1,3 +1,8 @@
+# Forkify
+
+1. [Deployed Link](https://forkify-gary-ci.netlify.app/)
+1. [Deployed with Netlify](https://app.netlify.com/teams/eventhorizn/overview)
+
 # TODO:
 
 1. Change styling
