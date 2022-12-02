@@ -1,0 +1,8 @@
+#!csharp
+
+using System.IO;
+
+var lines = File.ReadAllLines("input.txt");
+
+
+var blah = 1;
