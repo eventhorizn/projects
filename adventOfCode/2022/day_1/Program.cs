@@ -20,14 +20,8 @@ var maxCalories = elves.Max(x => x.TotalCalories);
 Console.WriteLine(maxCalories);
 
 // Part 2
-var sortedElves = elves.OrderByDescending(x => x.TotalCalories).ToList();
-var topThreeCalories = 0;
-for (var i = 0; i <= 2; i++)
-{
-    topThreeCalories += sortedElves[i].TotalCalories;
-}
-
-Console.WriteLine(topThreeCalories);
+var sortedElves = elves.OrderBy(x => x.TotalCalories);
+Console.WriteLine(sortedElves.TakeLast(3).Sum(x => x.TotalCalories));
 
 class Elf
 {
