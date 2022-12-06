@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-var lines = File.ReadAllLines("input.txt");
+﻿var lines = File.ReadAllLines("input.txt");
 
 PartOne(lines);
 PartTwo(lines);
@@ -39,17 +37,26 @@ static void PartTwo(IList<string> lines)
     for (var i = 0; i < lines.Count; i++)
     {
         // skip the stacks
-        if (i < 5) continue;
+        if (i < 10) continue;
 
         var instr = new Instruction(lines[i]);
         var from = stacks[instr.From - 1];
         var to = stacks[instr.To - 1];
 
+        var tempList = new LinkedList<char>();
+        // We are getting the sub list from the 'from'
         for (var j = 0; j < instr.Amount; j++)
         {
             var val = from.Last.Value;
             from.RemoveLast();
-            to.AddLast(val);
+            tempList.AddLast(val);
+        }
+
+        // Going to reverse it and add last (so it's in the right order)
+        // VERY unclever
+        foreach (var item in tempList.Reverse())
+        {
+            to.AddLast(item);
         }
     }
 
@@ -117,44 +124,37 @@ static IList<Stack<char>> BuildStacks()
 //  1   2   3   4   5   6   7   8   9 
 static IList<LinkedList<char>> BuildLinkedLists()
 {
-    var queues = new List<LinkedList<char>>();
-    var queueOne = new LinkedList<char>(
-        new List<char>() { 'Z', 'N' });
-    var queueTwo = new LinkedList<char>(
-        new List<char>() { 'M', 'C', 'D' });
-    var queueThree = new LinkedList<char>(
-        new List<char>() { 'P' });
+    var lists = new List<LinkedList<char>>();
+    var listOne = new LinkedList<char>(
+        new List<char>() { 'Z', 'P', 'M', 'H', 'R' });
+    var listTwo = new LinkedList<char>(
+        new List<char>() { 'P', 'C', 'J', 'B' });
+    var listThree = new LinkedList<char>(
+        new List<char>() { 'S', 'N', 'H', 'G', 'L', 'C', 'D' });
+    var listFour = new LinkedList<char>(
+        new List<char>() { 'F', 'T', 'M', 'D', 'Q', 'S', 'R', 'L' });
+    var listFive = new LinkedList<char>(
+        new List<char>() { 'F', 'S', 'P', 'Q', 'B', 'T', 'Z', 'M' });
+    var listSix = new LinkedList<char>(
+        new List<char>() { 'T', 'F', 'S', 'Z', 'B', 'G' });
+    var listSeven = new LinkedList<char>(
+        new List<char>() { 'N', 'R', 'V' });
+    var listEight = new LinkedList<char>(
+        new List<char>() { 'P', 'G', 'L', 'T', 'D', 'V', 'C', 'M' });
+    var listNine = new LinkedList<char>(
+        new List<char>() { 'W', 'Q', 'N', 'J', 'F', 'M', 'L' });
 
-    // var queueOne = new LinkedList<char>(
-    //     new List<char>() { 'Z', 'P', 'M', 'H', 'R' });
-    // var queueTwo = new LinkedList<char>(
-    //     new List<char>() { 'P', 'C', 'J', 'B' });
-    // var queueThree = new LinkedList<char>(
-    //     new List<char>() { 'S', 'N', 'H', 'G', 'L', 'C', 'D' });
-    // var queueFour = new LinkedList<char>(
-    //     new List<char>() { 'F', 'T', 'M', 'D', 'Q', 'S', 'R', 'L' });
-    // var queueFive = new LinkedList<char>(
-    //     new List<char>() { 'F', 'S', 'P', 'Q', 'B', 'T', 'Z', 'M' });
-    // var queueSix = new LinkedList<char>(
-    //     new List<char>() { 'T', 'F', 'S', 'Z', 'B', 'G' });
-    // var queueSeven = new LinkedList<char>(
-    //     new List<char>() { 'N', 'R', 'V' });
-    // var queueEight = new LinkedList<char>(
-    //     new List<char>() { 'P', 'G', 'L', 'T', 'D', 'V', 'C', 'M' });
-    // var queueNine = new LinkedList<char>(
-    //     new List<char>() { 'W', 'Q', 'N', 'J', 'F', 'M', 'L' });
+    lists.Add(listOne);
+    lists.Add(listTwo);
+    lists.Add(listThree);
+    lists.Add(listFour);
+    lists.Add(listFive);
+    lists.Add(listSix);
+    lists.Add(listSeven);
+    lists.Add(listEight);
+    lists.Add(listNine);
 
-    queues.Add(queueOne);
-    queues.Add(queueTwo);
-    queues.Add(queueThree);
-    // queues.Add(queueFour);
-    // queues.Add(queueFive);
-    // queues.Add(queueSix);
-    // queues.Add(queueSeven);
-    // queues.Add(queueEight);
-    // queues.Add(queueNine);
-
-    return queues;
+    return lists;
 }
 
 class Instruction
