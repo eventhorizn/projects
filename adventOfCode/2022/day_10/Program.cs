@@ -2,7 +2,7 @@
 
 var lines = File.ReadAllLines("input.txt");
 
-//PartOne(lines);
+PartOne(lines);
 PartTwo(lines);
 
 static void PartOne(IList<string> lines)
