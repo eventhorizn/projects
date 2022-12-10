@@ -8,7 +8,7 @@ PartTwo(lines);
 
 static void PartOne(IList<string> lines)
 {
-    var head = new Rope();
+    var head = new Rope(2);
 
     foreach (var line in lines)
     {
@@ -30,15 +30,19 @@ static void PartTwo(IList<string> lines)
 class Rope
 {
     public IList<Node> Knots { get; } = new List<Node>();
-    public Node Head => Knots.First();
-    public Node Tail => Knots.Last();
+    public Node Head { get; set; }
+    public Node Tail { get; set; }
     public IList<Node> TailVisits { get; } = new List<Node>();
 
     public Rope(int numKnots)
     {
-        Head = new Node { X = 0, Y = 0 };
-        Tail = new Node { X = 0, Y = 0 };
-        TailVisits = new List<Node>();
+        for (var i = 0; i < numKnots; i++)
+        {
+            Knots.Add(new Node { X = 0, Y = 0 });
+        }
+
+        Head = Knots.First();
+        Head = Knots.Last();
 
         // Initial starting point
         AddVisit();
@@ -46,6 +50,8 @@ class Rope
 
     public void MoveHead(string direction, int amount)
     {
+        // foreach(var knot in Knots)
+        // {
         for (var i = 0; i < amount; i++)
         {
             if (direction == "R") Head.X++;
@@ -55,6 +61,7 @@ class Rope
 
             MoveTail();
         }
+        //}
     }
 
     private void MoveTail()
