@@ -1,14 +1,21 @@
-﻿using System.Diagnostics;
-using System.Runtime.Intrinsics.Arm;
-
-var lines = File.ReadAllLines("input.txt");
+﻿var lines = File.ReadAllLines("input.txt");
 
 PartOne(lines);
 PartTwo(lines);
 
 static void PartOne(IList<string> lines)
 {
-    var head = new Rope(2);
+    RunRope(lines, 2);
+}
+
+static void PartTwo(IList<string> lines)
+{
+    RunRope(lines, 10);
+}
+
+static void RunRope(IList<string> lines, int numKnots)
+{
+    var rope = new Rope(numKnots);
 
     foreach (var line in lines)
     {
@@ -17,14 +24,10 @@ static void PartOne(IList<string> lines)
         var direction = lineSplit[0];
         var amount = int.Parse(lineSplit[1]);
 
-        head.MoveHead(direction, amount);
+        rope.MoveHead(direction, amount);
     }
 
-    Console.WriteLine(head.TailVisits.Count);
-}
-
-static void PartTwo(IList<string> lines)
-{
+    Console.WriteLine(rope.TailVisits.Count);
 }
 
 class Rope
@@ -41,27 +44,38 @@ class Rope
             Knots.Add(new Node { X = 0, Y = 0 });
         }
 
-        Head = Knots.First();
-        Head = Knots.Last();
-
-        // Initial starting point
-        AddVisit();
+        TailVisits.Add(new Node { X = 0, Y = 0 });
     }
 
+    // Starting at the head we move in the direction
+    // Then loop through the rope, setting the head to
+    // the tail, and the tail to the knot before
+    // the previous tail. In that way, we move down the rope knots
     public void MoveHead(string direction, int amount)
     {
-        // foreach(var knot in Knots)
-        // {
         for (var i = 0; i < amount; i++)
         {
+            // Rest our head and tail
+            Head = Knots[0];
+            Tail = Knots[1];
+
             if (direction == "R") Head.X++;
             if (direction == "U") Head.Y++;
             if (direction == "L") Head.X--;
             if (direction == "D") Head.Y--;
 
-            MoveTail();
+            // Loop through rope, so we can adjust down the line
+            var current = 0;
+            while (current < Knots.Count)
+            {
+                MoveTail();
+                current++;
+
+                if (current == Knots.Count - 1) break;
+                Head = Knots[current];
+                Tail = Knots[current + 1];
+            }
         }
-        //}
     }
 
     private void MoveTail()
@@ -137,8 +151,9 @@ class Rope
 
     private void AddVisit()
     {
-        if (!TailVisits.Any(x => x.Y == Tail.Y && x.X == Tail.X))
-            TailVisits.Add(new Node { X = Tail.X, Y = Tail.Y });
+        var tail = Knots.Last();
+        if (!TailVisits.Any(x => x.Y == tail.Y && x.X == tail.X))
+            TailVisits.Add(new Node { X = tail.X, Y = tail.Y });
     }
 
     private bool IsTailAdjacent()
