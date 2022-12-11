@@ -3,7 +3,7 @@ using System.Numerics;
 
 var lines = File.ReadAllLines("input.txt");
 
-PartOne(lines);
+//PartOne(lines);
 PartTwo(lines);
 
 static void PartOne(IList<string> lines)
@@ -44,7 +44,7 @@ static void MonkeyBusiness(IList<string> lines, bool divide, int numRounds)
     var mostActive = monkeys.Max(x => x.Inspections);
     monkeys.Remove(monkeys.First(x => x.Inspections == mostActive));
     var secondMostActive = monkeys.Max(x => x.Inspections);
-    long monkeyBusiness = (long)((long)mostActive * (long)secondMostActive);
+    long monkeyBusiness = mostActive * (long)secondMostActive;
 
     Console.WriteLine(monkeyBusiness);
 }
@@ -60,6 +60,10 @@ class Round
 
     public void ApplyRound(bool divide)
     {
+        // This is the 'common multiple' of our divisors (which are prime)
+        // So, when our worry level gets more than this value, we can just
+        // mod it to get the remainder (which is all we care about, since it gets the same answer when we mod by divisor)
+        // If it's less, we get the worry level
         var globalMod = Monkeys.Select(x => x.TestDivisible).Aggregate(1, (x, y) => (int)(x * y));
 
         foreach (var monkey in Monkeys)
