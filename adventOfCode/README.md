@@ -1,5 +1,15 @@
 # Advent Of Code
 
+## 2022: C#
+
+Modular Arithmatic on day 1
+
+If numbers get huge and you are doing modulus on them, do modulus arithmetic
+
+That is, reducing a massive number by the modulus of the lcm of divisors
+
+The remainder will work the same as the massive number
+
 ## 2020: JavaScript
 
 ## 2019: TypeScript
