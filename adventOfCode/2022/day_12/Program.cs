@@ -6,20 +6,6 @@ PartTwo(lines);
 static void PartOne(IList<string> lines)
 {
     Day12.Solve();
-    // var graph = new List<List<int>>
-    //     {
-    //         new List<int>() { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
-    //         new List<int>() { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
-    //         new List<int>() { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
-    //         new List<int>() { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
-    //         new List<int>() { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
-    //         new List<int>() { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
-    //         new List<int>() { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-    //         new List<int>() { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
-    //         new List<int>() { 0, 0, 2, 0, 0, 0, 6, 7, 0 }
-    //     };
-
-    // _ = new Djikstra(graph, 1);
 }
 
 static void PartTwo(IList<string> lines)
@@ -27,18 +13,18 @@ static void PartTwo(IList<string> lines)
 
 }
 
-public class Node
+class Node
 {
-    public int xPos { get; set; }
-    public int yPos { get; set; }
-    public char elevation { get; set; }
+    public int X { get; }
+    public int Y { get; }
+    public char Elevation { get; set; }
     public Node Parent { get; set; }
 
     public Node(int x, int y, char elev)
     {
-        xPos = x;
-        yPos = y;
-        elevation = elev;
+        X = x;
+        Y = y;
+        Elevation = elev;
     }
 
     public void SetParent(Node parent)
@@ -53,11 +39,9 @@ public static class Day12
     static Node[,] map;
     static int xSize = input[0].Length;
     static int ySize = input.Length;
-    static int[,] mapCoords;
 
     static Queue<Node> visited = new Queue<Node>();
     static Queue<Node> nodesToVisit = new Queue<Node>();
-
     static List<Node> Path = new List<Node>();
 
 
@@ -74,12 +58,12 @@ public static class Day12
                 if (input[y][x] == 'E')
                 {
                     destination = new int[] { x, y };
-                    map[x, y].elevation = 'z';
+                    map[x, y].Elevation = 'z';
                 }
                 if (input[y][x] == 'S')
                 {
                     startingLocation = new int[] { x, y };
-                    map[x, y].elevation = 'a';
+                    map[x, y].Elevation = 'a';
                 }
             }
         }
@@ -90,11 +74,11 @@ public static class Day12
         while (nodesToVisit.Count > 0 || !visited.Contains(map[destination[0], destination[1]]))
         {
             // Check adjacent nodes
-            int[] loc = new int[] { nodesToVisit.First().xPos, nodesToVisit.First().yPos };
+            int[] loc = new int[] { nodesToVisit.First().X, nodesToVisit.First().Y };
             // Up
             if (loc[1] - 1 >= 0)
             {
-                if (!nodesToVisit.Contains(map[loc[0], loc[1] - 1]) && !visited.Contains(map[loc[0], loc[1] - 1]) && (map[loc[0], loc[1] - 1].elevation - nodesToVisit.First().elevation) <= 1)
+                if (!nodesToVisit.Contains(map[loc[0], loc[1] - 1]) && !visited.Contains(map[loc[0], loc[1] - 1]) && (map[loc[0], loc[1] - 1].Elevation - nodesToVisit.First().Elevation) <= 1)
                 {
                     map[loc[0], loc[1] - 1].Parent = nodesToVisit.First();
                     nodesToVisit.Enqueue(map[loc[0], loc[1] - 1]);
@@ -103,7 +87,7 @@ public static class Day12
             // Down
             if (loc[1] + 1 < ySize)
             {
-                if (!nodesToVisit.Contains(map[loc[0], loc[1] + 1]) && !visited.Contains(map[loc[0], loc[1] + 1]) && (map[loc[0], loc[1] + 1].elevation - nodesToVisit.First().elevation) <= 1)
+                if (!nodesToVisit.Contains(map[loc[0], loc[1] + 1]) && !visited.Contains(map[loc[0], loc[1] + 1]) && (map[loc[0], loc[1] + 1].Elevation - nodesToVisit.First().Elevation) <= 1)
                 {
                     map[loc[0], loc[1] + 1].Parent = nodesToVisit.First();
                     nodesToVisit.Enqueue(map[loc[0], loc[1] + 1]);
@@ -112,7 +96,7 @@ public static class Day12
             // Left
             if (loc[0] - 1 >= 0)
             {
-                if (!nodesToVisit.Contains(map[loc[0] - 1, loc[1]]) && !visited.Contains(map[loc[0] - 1, loc[1]]) && (map[loc[0] - 1, loc[1]].elevation - nodesToVisit.First().elevation) <= 1)
+                if (!nodesToVisit.Contains(map[loc[0] - 1, loc[1]]) && !visited.Contains(map[loc[0] - 1, loc[1]]) && (map[loc[0] - 1, loc[1]].Elevation - nodesToVisit.First().Elevation) <= 1)
                 {
                     map[loc[0] - 1, loc[1]].Parent = nodesToVisit.First();
                     nodesToVisit.Enqueue(map[loc[0] - 1, loc[1]]);
@@ -121,7 +105,7 @@ public static class Day12
             // Right
             if (loc[0] + 1 < xSize)
             {
-                if (!nodesToVisit.Contains(map[loc[0] + 1, loc[1]]) && !visited.Contains(map[loc[0] + 1, loc[1]]) && (map[loc[0] + 1, loc[1]].elevation - nodesToVisit.First().elevation) <= 1)
+                if (!nodesToVisit.Contains(map[loc[0] + 1, loc[1]]) && !visited.Contains(map[loc[0] + 1, loc[1]]) && (map[loc[0] + 1, loc[1]].Elevation - nodesToVisit.First().Elevation) <= 1)
                 {
                     map[loc[0] + 1, loc[1]].Parent = nodesToVisit.First();
                     nodesToVisit.Enqueue(map[loc[0] + 1, loc[1]]);
@@ -151,7 +135,7 @@ public static class Day12
         PathFound = false;
         while (!PathFound)
         {
-            if (check.Parent.elevation == 'b')
+            if (check.Parent.Elevation == 'b')
             {
                 PathFound = true;
             }
