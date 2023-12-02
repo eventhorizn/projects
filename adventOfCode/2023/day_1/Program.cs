@@ -1,37 +1,30 @@
 ﻿var lines = File.ReadAllLines("input.txt");
 
 // Part 1
-// var total = 0;
-// foreach (var line in lines)
-// {
-//     // Enumerable of chars
-//     var digits = line.Where(char.IsDigit);
-//     if (digits.Any())
-//     {
-//         // Converts char to string, then to int (messy)
-//         var number = int.Parse(
-//             digits.First().ToString() +
-//             digits.Last().ToString());
-
-//         total += number;
-//     }
-// }
-
-// Console.WriteLine("Part 1");
-// Console.WriteLine(total);
-// Console.WriteLine("\n");
-
 var total = 0;
+foreach (var line in lines)
+{
+    // Enumerable of chars
+    var digits = line.Where(char.IsDigit);
+    if (digits.Any())
+    {
+        // Converts char to string, then to int (messy)
+        var number = int.Parse(
+            digits.First().ToString() +
+            digits.Last().ToString());
+
+        total += number;
+    }
+}
+
+Console.WriteLine("Part 1");
+Console.WriteLine(total);
+Console.WriteLine("\n");
+
+// Part 2
+total = 0;
 var textNumbers = new Dictionary<string, int>
 {
-    // { "twone", 21 },
-    // { "eightwo", 82 },
-    // { "eighthree", 83 },
-    // { "oneight", 18 },
-    // { "threeight", 38 },
-    // { "nineight", 98 },
-    // { "sevenine", 79 },
-    // { "fiveight", 58 },
     { "one", 1 },
     { "two", 2 },
     { "three", 3 },
@@ -90,7 +83,7 @@ string FindLastDigit(string line)
     int maxIndex = int.MinValue;
     foreach (var key in textNumbers.Keys)
     {
-        var index = line.IndexOf(key);
+        var index = line.LastIndexOf(key);
         if (index > -1 && index >= maxIndex)
         {
             max = key;
@@ -100,7 +93,7 @@ string FindLastDigit(string line)
 
     foreach (var value in textNumbers.Values)
     {
-        var index = line.IndexOf(value.ToString());
+        var index = line.LastIndexOf(value.ToString());
         if (index > -1 && index >= maxIndex)
         {
             max = value.ToString();
