@@ -3,7 +3,7 @@ from pathlib import Path
 def left_to_right(x: int, y: int, grid: list[str], search: str):
     loop_var = x + 1
     temp_val = grid[y][x]
-    while loop_var < len(grid[y]) and len(temp_val) < 4:
+    while loop_var < len(grid[y]) and len(temp_val) < len(search):
         temp_val += grid[y][loop_var]
         loop_var += 1
 
@@ -15,7 +15,7 @@ def left_to_right(x: int, y: int, grid: list[str], search: str):
 def right_to_left(x: int, y: int, grid: list[str], search: str):
     loop_var = x - 1
     temp_val = grid[y][x]
-    while loop_var >= 0 and len(temp_val) < 4:
+    while loop_var >= 0 and len(temp_val) < len(search):
         temp_val += grid[y][loop_var]
         loop_var -= 1
 
@@ -28,7 +28,7 @@ def up_to_down(x: int, y: int, grid: list[str], search: str):
     loop_var = y + 1
     temp_val = grid[y][x]
 
-    while loop_var < len(grid) and len(temp_val) < 4:
+    while loop_var < len(grid) and len(temp_val) < len(search):
         temp_val += grid[loop_var][x]
         loop_var += 1
 
@@ -41,7 +41,7 @@ def down_to_up(x: int, y: int, grid: list[str], search: str):
     loop_var = y - 1
     temp_val = grid[y][x]
 
-    while loop_var >= 0 and len(temp_val) < 4:
+    while loop_var >= 0 and len(temp_val) < len(search):
         temp_val += grid[loop_var][x]
         loop_var -= 1
 
@@ -51,11 +51,14 @@ def down_to_up(x: int, y: int, grid: list[str], search: str):
     return 0
 
 def diag_down_right(x: int, y: int, grid: list[str], search: str):
+    if x >= len(grid) or y >= len(grid):
+        return 0
+    
     loop_x = x + 1
     loop_y = y + 1
     temp_val = grid[y][x]
 
-    while loop_x < len(grid[y]) and loop_y < len(grid) and len(temp_val) < 4:
+    while loop_x < len(grid[y]) and loop_y < len(grid) and len(temp_val) < len(search):
         temp_val += grid[loop_y][loop_x]
         loop_x += 1
         loop_y += 1
@@ -66,11 +69,14 @@ def diag_down_right(x: int, y: int, grid: list[str], search: str):
     return 0
 
 def diag_down_left(x: int, y: int, grid: list[str],  search: str):
+    if x >= len(grid) or y >= len(grid):
+        return 0
+
     loop_x = x - 1
     loop_y = y + 1
     temp_val = grid[y][x]
 
-    while loop_x >= 0 and loop_y < len(grid) and len(temp_val) < 4:
+    while loop_x >= 0 and loop_y < len(grid) and len(temp_val) < len(search):
         temp_val += grid[loop_y][loop_x]
         loop_x -= 1
         loop_y += 1
@@ -81,11 +87,14 @@ def diag_down_left(x: int, y: int, grid: list[str],  search: str):
     return 0
 
 def diag_up_right(x: int, y: int, grid: list[str], search: str):
+    if x >= len(grid) or y >= len(grid):
+        return 0
+
     loop_x = x + 1
     loop_y = y - 1
     temp_val = grid[y][x]
 
-    while loop_x < len(grid[y]) and loop_y >= 0 and len(temp_val) < 4:
+    while loop_x < len(grid[y]) and loop_y >= 0 and len(temp_val) < len(search):
         temp_val += grid[loop_y][loop_x]
         loop_x += 1
         loop_y -= 1
@@ -96,11 +105,14 @@ def diag_up_right(x: int, y: int, grid: list[str], search: str):
     return 0
 
 def diag_up_left(x: int, y: int, grid: list[str], search: str):
+    if x >= len(grid) or y >= len(grid):
+        return 0
+
     loop_x = x - 1
     loop_y = y - 1
     temp_val = grid[y][x]
 
-    while loop_x >= 0 and loop_y >= 0 and len(temp_val) < 4:
+    while loop_x >= 0 and loop_y >= 0 and len(temp_val) < len(search):
         temp_val += grid[loop_y][loop_x]
         loop_x -= 1
         loop_y -= 1
@@ -134,6 +146,14 @@ def part_two(grid: list[str]):
 
     for y, _ in enumerate(grid):
         for x, _ in enumerate(grid[y]):
+            down_right = diag_down_right(x, y, grid, search)
+            down_left = diag_down_left(x + 2, y, grid, search)
+            up_right = diag_up_right(x, y + 2, grid, search)
+            up_left = diag_up_left(x + 2, y + 2, grid, search)
+
+            mas_total = down_right + down_left + up_right + up_left
+            if (mas_total >= 2):
+                total += 1
 
     return total
 
@@ -146,3 +166,4 @@ with p.open('r') as f:
     f.close()
 
 print(part_one(grid))
+print(part_two(grid))
