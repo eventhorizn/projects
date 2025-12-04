@@ -23,28 +23,34 @@ def part_one(ranges: list[str]):
 # So, we just need to start w/ the first character
 # and see if the next value matches, then get the next 2
 # and see if the next 2 matches, so on and so forth, up to the midpoint
-def contain_repeat_sequence(input: str):
-    if len(input) <= 1: return False
+# I couldn't crack it so I found the clever solution below
 
-    midpoint = int(len(input) / 2)
-    match = False
+# We concatenate the string with itself and check if the original string appears again, 
+# starting from the second character.
+# If it does, the string is made of repeated substrings.
+def contain_repeat_sequence(s: str):
+    return (s + s).find(s, 1) != len(s)
+    # if len(input) <= 1: return False
 
-    for seq_len in range(1, midpoint + 1):
-        seq = input[0:seq_len]
-        for input_index in range(0, len(input)):
-            if input_index + seq_len >= len(input): break
+    # midpoint = int(len(input) / 2)
+    # match = False
 
-            next_seq_step = input[seq_len:]
-            next_seq = next_seq_step[input_index:input_index + seq_len]
+    # for seq_len in range(1, midpoint + 1):
+    #     seq = input[0:seq_len]
+    #     for input_index in range(0, len(input)):
+    #         if input_index + seq_len >= len(input): break
 
-            if len(next_seq) != seq_len: break
+    #         next_seq_step = input[seq_len:]
+    #         next_seq = next_seq_step[input_index:input_index + seq_len]
 
-            match = seq == next_seq
-            if not match: break
+    #         if len(next_seq) != seq_len: break
+
+    #         match = seq == next_seq
+    #         if not match: break
         
-        if match: return True
+    #     if match: return True
     
-    return False
+    # return False
 
 def part_two(ranges: list[str]):
     invalid_sum = 0
@@ -68,9 +74,6 @@ ranges = []
 with p.open('r') as f:
     ranges = f.read().split(',')
     f.close()
-
-print(contain_repeat_sequence("38593859"))
-print(contain_repeat_sequence("111"))
 
 #print(part_one(ranges))
 print(part_two(ranges))
