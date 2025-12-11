@@ -1,7 +1,5 @@
 from pathlib import Path
 
-p = Path(__file__).with_name('input.txt')
-
 def part_one(directions: list[str]):
     count = 0
     for dir in directions:
@@ -27,6 +25,8 @@ def part_two(directions: list[str]):
         position += 1
     
     return count
+
+p = Path(__file__).with_name('input.txt')
 
 directions = []
 
