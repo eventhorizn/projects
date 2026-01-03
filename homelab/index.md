@@ -17,5 +17,8 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/Proxmo
 # Software
 
 1. Filezilla
+   - FTP to the proxmox (and other) servers
+1. Windows Terminal
+   - ssh into VMs
 
-- FTP to the proxmox (and other) servers
+# Useful Links
