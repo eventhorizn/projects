@@ -105,8 +105,6 @@ sudo chown ghake compose.yml
 
 ghake
 
-Fer113bax#1.
-
 https://docs.portainer.io/start/install-ce/server/docker/linux#docker-run
 
 ### Multiple stacks
