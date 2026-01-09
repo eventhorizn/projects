@@ -1,9 +1,19 @@
+TODO:
+
+Use this wiki to build out your own
+
+https://github.com/TechHutTV/homelab/tree/main/media
+
 # Setup
 
 1. Download VM iso
 1. Upload iso tp proxmox
    - loclal (pve) > ISO images
 1. Create VM and use uploaded iso
+
+https://www.youtube.com/watch?v=Vwtx_dfYrtA&list=PLFxfbw6hcvOf5iaYlJvt9QJDSCcewXJR3
+
+https://techhut.tv/7-docker-basics-for-beginners/
 
 ## Install QEMU Guest Agent
 
@@ -80,6 +90,24 @@ ssh ghake@192.168.1.246
 
 1. SFTP to the VM and create the docker compose files
    - Manually or thru VS code (haven't gottena chance to do ssh tunnels w/ vscode yet)
+1. Or use portainer stacks
+1. Store docker compose files in /opt/docker
+
+```
+sudo chown ghake compose.yml
+```
+
+192.168.1.246:9443
+
+### Portainer
+
+192.168.1.246:9443
+
+ghake
+
+Fer113bax#1.
+
+https://docs.portainer.io/start/install-ce/server/docker/linux#docker-run
 
 ### Multiple stacks
 
@@ -87,3 +115,23 @@ ssh ghake@192.168.1.246
 
 1. IP: 192.168.1.246
 1. username: ghake
+
+## jellyfin
+
+https://github.com/TechHutTV/homelab/blob/main/media/jellyfin/README.md
+
+## qBittorrent
+
+http://192.168.1.164:8080/
+
+initial user" admin
+
+check logs to get initial random pwd
+
+docker logs qbittorrent
+
+Create a new user in the settings
+
+change default save paths
+
+## Jellyseer
