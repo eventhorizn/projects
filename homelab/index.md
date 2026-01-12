@@ -1,5 +1,33 @@
 # General Information
 
+## Local Services
+
+### Managers
+
+- [proxmox](https://proxmox.home.arpa/)
+  - 192.168.1.239:8006
+- [portainer]()
+
+### Proxy
+
+- [ngnix](http://ngnix.home.arpa/)
+  - 192.168.1.164:81
+- [pihole](http://pihole.home.arpa/admin/)
+  - 192.168.1.166:80
+
+### Media
+
+- [jellyfin](http://jellyfin.home.arpa/)
+  - 192.168.1.164:8096
+- [jellyseer](http://jellyseer.home.arpa/)
+  - 192.168.1.164:5055
+
+### Arr
+
+- [Prowlarr]()
+- [Sonarr]()
+- [Radarr]()
+
 ## Setup
 
 only local data store

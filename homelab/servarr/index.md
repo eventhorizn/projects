@@ -6,6 +6,8 @@ https://github.com/TechHutTV/homelab/tree/main/media
 
 # Setup
 
+Follow [Docker VM setup](../docker/index.md)
+
 1. Download VM iso
 1. Upload iso tp proxmox
    - loclal (pve) > ISO images
@@ -47,57 +49,25 @@ ssh ghake@192.168.1.246
 
 # Docker
 
+https://techhut.tv/7-docker-basics-for-beginners/
+
 ## Install
 
-1. RTFM: https://docs.docker.com/engine/install/ubuntu/
-   - Using apt repo
-1. Set up apt repo
-
-   ```bash
-   # Add Docker's official GPG key:
-   sudo apt update
-   sudo apt install ca-certificates curl
-   sudo install -m 0755 -d /etc/apt/keyrings
-   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-   sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-   # Add the repository to Apt sources:
-   sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
-   Types: deb
-   URIs: https://download.docker.com/linux/ubuntu
-   Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
-   Components: stable
-   Signed-By: /etc/apt/keyrings/docker.asc
-   EOF
-
-   sudo apt update
-   ```
-
-1. Install
-   ```bash
-   sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-   ```
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sh get-docker.sh
+```
 
 ## Docker Compose
 
 1. RTFM: https://docs.docker.com/compose/
+
    ```bash
    sudo apt-get update
    sudo apt-get install docker-compose-plugin
    ```
 
-## Creating a docker compose stack
-
-1. SFTP to the VM and create the docker compose files
-   - Manually or thru VS code (haven't gottena chance to do ssh tunnels w/ vscode yet)
-1. Or use portainer stacks
-1. Store docker compose files in /opt/docker
-
-```
-sudo chown ghake compose.yml
-```
-
-192.168.1.246:9443
+   192.168.1.246:9443
 
 ### Portainer
 

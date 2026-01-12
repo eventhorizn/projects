@@ -2,13 +2,13 @@ proxox hardening
 
 dns
 
-- piehole
+- multiple piehole
+- sync
+- always on
+- unbound?
 
 arr stack
 
-- docker
-- Do I want to put jellyfin here and test it out?
+- flaresolverr
 
 web server
-
-docker
