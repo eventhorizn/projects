@@ -1,4 +1,4 @@
-proxox hardening
+proxmox hardening
 
 dns
 
@@ -12,3 +12,5 @@ arr stack
 - flaresolverr
 
 web server
+
+proxmox backup
